@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <scenes>
+        <!--Master-->
+        <scene sceneID="cUi-kZ-frf">
+            <objects>
+                <navigationController title="Master" id="rS3-R9-Ivy" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="yXu-0R-QUA">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="pGg-6v-bdr" kind="relationship" relationship="rootViewController" id="RxB-wf-QIq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eq9-QA-ai8" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-148" y="64"/>
+        </scene>
+        <!--Master-->
+        <scene sceneID="VgW-fR-Quf">
+            <objects>
+                <tableViewController title="Master" id="pGg-6v-bdr" customClass="MasterViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="136" sectionHeaderHeight="22" sectionFooterHeight="22" id="mLL-gJ-YKr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MainCell" rowHeight="136" id="m0d-ak-lc9" customClass="MainViewCell">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0d-ak-lc9" id="d3P-M7-ByW">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="KqC-4F-kEP" userLabel="tagName">
+                                            <rect key="frame" x="8" y="8" width="130" height="21"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="My Journey To Glow">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.090196080505847931" green="0.31764706969261169" blue="0.85490202903747559" alpha="1" colorSpace="deviceRGB"/>
+                                                        <font key="NSFont" size="12" name="HelveticaNeue-Bold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cuE-u4-R6h">
+                                            <rect key="frame" x="23" y="37" width="151" height="21"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Lingchuan ">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.49803924560546875" green="0.63529413938522339" blue="0.90588241815567017" alpha="1" colorSpace="deviceRGB"/>
+                                                        <font key="NSFont" size="12" name="HelveticaNeue-Thin"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                    </attributes>
+                                                </fragment>
+                                                <fragment content="responsed:">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.047058828175067902" green="0.054901964962482452" blue="0.11764706671237946" alpha="1" colorSpace="deviceRGB"/>
+                                                        <font key="NSFont" size="12" name="HelveticaNeue-Thin"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YkQ-JJ-t41">
+                                            <rect key="frame" x="23" y="57" width="244" height="21"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Glow accuracy">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.34509804844856262" green="0.37254902720451355" blue="0.89411771297454834" alpha="1" colorSpace="deviceRGB"/>
+                                                        <font key="NSFont" size="18" name="HelveticaNeue-Light"/>
+                                                        <font key="NSOriginalFont" size="18" name="HelveticaNeue-Light"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6L8-K2-yLg">
+                                            <rect key="frame" x="23" y="86" width="293" height="21"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Today, I want to finish this program.">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.51372551918029785" green="0.61568629741668701" blue="0.90196084976196289" alpha="1" colorSpace="deviceRGB"/>
+                                                        <font key="NSFont" size="14" name="HelveticaNeue-Thin"/>
+                                                        <font key="NSOriginalFont" size="12" name="HelveticaNeue-Thin"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qDi-8o-SGu">
+                                            <rect key="frame" x="23" y="115" width="94" height="21"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="7 responses">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.17000000000000001" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="12" name="HelveticaNeue-Light"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="avatar.png" translatesAutoresizingMaskIntoConstraints="NO" id="Nel-IV-Gvw">
+                                            <rect key="frame" x="280" y="34" width="31" height="28"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="avatar" destination="Nel-IV-Gvw" id="HZB-eM-A1n"/>
+                                    <outlet property="commentCount" destination="qDi-8o-SGu" id="dFD-zI-GGf"/>
+                                    <outlet property="content" destination="6L8-K2-yLg" id="w1P-pl-yeA"/>
+                                    <outlet property="lastCommenter" destination="cuE-u4-R6h" id="SpF-lM-ECS"/>
+                                    <outlet property="tagName" destination="KqC-4F-kEP" id="AOZ-gf-ErB"/>
+                                    <outlet property="title" destination="YkQ-JJ-t41" id="c9t-X9-8Dc"/>
+                                    <segue destination="Ah7-4n-0Wa" kind="show" identifier="showDetail" id="jUr-3t-vfg"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="pGg-6v-bdr" id="P41-gY-KXY"/>
+                            <outlet property="delegate" destination="pGg-6v-bdr" id="Y6K-Cp-Qkv"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="tQt-TN-PWz"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Cn-md-YlS" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="743" y="64"/>
+        </scene>
+        <!--Detail-->
+        <scene sceneID="Cn3-H9-jdl">
+            <objects>
+                <viewController title="Detail" id="Ah7-4n-0Wa" customClass="DetailViewController" sceneMemberID="viewController">
+                    <tableViewCell key="view" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="BBw-f1-eGt">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BBw-f1-eGt" id="B9P-DT-bsQ">
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="117" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="WIW-Dv-rSz">
+                                    <rect key="frame" x="0.0" y="62" width="600" height="537.5"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <prototypes>
+                                        <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="CommentCell" rowHeight="117" id="ZdJ-zu-Uht" customClass="CommentViewCell">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZdJ-zu-Uht" id="r37-MN-mhZ">
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhz-mF-lPz">
+                                                        <rect key="frame" x="19" y="8" width="225" height="21"/>
+                                                        <attributedString key="attributedText">
+                                                            <fragment content="Label">
+                                                                <attributes>
+                                                                    <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                    <font key="NSFont" size="14" name="HelveticaNeue-Thin"/>
+                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                                </attributes>
+                                                            </fragment>
+                                                        </attributedString>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vD4-jp-89V">
+                                                        <rect key="frame" x="19" y="37" width="296" height="62"/>
+                                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                        <attributedString key="attributedText">
+                                                            <fragment content="Label">
+                                                                <attributes>
+                                                                    <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                    <font key="NSFont" size="14" name="HelveticaNeue-Light"/>
+                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                                </attributes>
+                                                            </fragment>
+                                                        </attributedString>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="avatar.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aug-yv-mBB">
+                                                        <rect key="frame" x="285" y="3" width="30" height="31"/>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                            </tableViewCellContentView>
+                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                            <connections>
+                                                <outlet property="avatar" destination="Aug-yv-mBB" id="IJS-fh-ri6"/>
+                                                <outlet property="commenter" destination="vhz-mF-lPz" id="Ewv-Uu-sv5"/>
+                                                <outlet property="content" destination="vD4-jp-89V" id="WZ1-En-oW4"/>
+                                            </connections>
+                                        </tableViewCell>
+                                    </prototypes>
+                                    <sections/>
+                                </tableView>
+                            </subviews>
+                        </tableViewCellContentView>
+                    </tableViewCell>
+                    <navigationItem key="navigationItem" id="cra-N8-TIN"/>
+                    <connections>
+                        <outlet property="commentsDetail" destination="WIW-Dv-rSz" id="0Jo-5U-JVj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lrm-kH-fPn" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1399" y="64"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="avatar.png" width="175" height="175"/>
+    </resources>
+</document>
