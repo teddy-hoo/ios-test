@@ -110,7 +110,7 @@
                                                     initWithString:[blog[@"latestCommenter"]
                                                                     stringByAppendingString:@" responded:"]];
     [lastCommenterText addAttribute:NSForegroundColorAttributeName
-                              value:[UIColor blueColor]
+                              value:[UIColor grayColor]
                               range:NSMakeRange(lastCommenterText.length - 10,10)];
     cell.lastCommenter.attributedText = lastCommenterText;
     cell.title.text         = blog[@"title"];
@@ -119,13 +119,12 @@
     
     NSString *avatarLink = blog[@"avatarOfCommenter"];
     if ((NSNull *)avatarLink != [NSNull null]) {
-        NSURL *avatarUrl = [NSURL URLWithString:avatarLink];
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
-        cell.avatar.image = image;
-//        cell.avatar.frame = CGRectMake(60,100, 100, 100);
-//        cell.avatar.layer.masksToBounds =YES;
-//        cell.avatar.layer.cornerRadius =50;
+//        NSURL *avatarUrl = [NSURL URLWithString:avatarLink];
+//        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
+//        cell.avatar.image = image;
     }
+    cell.avatar.layer.masksToBounds =YES;
+    cell.avatar.layer.cornerRadius =13;
     
     return cell;
 }

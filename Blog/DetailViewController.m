@@ -90,13 +90,12 @@
     
     NSString *avatarLink = author[@"profile_image"];
     if ((NSNull *)avatarLink != [NSNull null]) {
-                NSURL *avatarUrl = [NSURL URLWithString:avatarLink];
-                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
-                cell.avatar.image = image;
-//        cell.avatar.frame = CGRectMake(60,100, 100, 100);
-//        cell.avatar.layer.masksToBounds =YES;
-//        cell.avatar.layer.cornerRadius =50;
+//        NSURL *avatarUrl = [NSURL URLWithString:avatarLink];
+//        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
+//        cell.avatar.image = image;
     }
+    cell.avatar.layer.masksToBounds =YES;
+    cell.avatar.layer.cornerRadius =13;
     
     return cell;
 }
@@ -110,7 +109,7 @@
     NSDictionary *author  = self.blog[@"author"];
     NSString *commentsCount = [NSString stringWithFormat:@"%lu", (unsigned long)self.comments.count];
     NSString *viewCount = [NSString stringWithFormat:@"%@", self.blog[@"views"]];
-    cell.commentAndView.text = [[[commentsCount stringByAppendingString:@" comments • "]
+    cell.commentAndView.text = [[[commentsCount stringByAppendingString:@" comments ∙ "]
                                  stringByAppendingString:viewCount] stringByAppendingString:@" views"];
     cell.tagName.text  = self.blog[@"tag"];
     cell.content.text  = self.blog[@"content"];
