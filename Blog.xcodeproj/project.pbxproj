@@ -21,6 +21,7 @@
 		FBA3DE3D1A14E5F0000826F8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBA3DE3B1A14E5F0000826F8 /* LaunchScreen.xib */; };
 		FBA3DE491A14E5F0000826F8 /* BlogTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA3DE481A14E5F0000826F8 /* BlogTests.m */; };
 		FBCECBE51A15F3C800388307 /* community.json in Resources */ = {isa = PBXBuildFile; fileRef = FBCECBE41A15F3C800388307 /* community.json */; };
+		FBE5320F1A18341F008C9B64 /* BlogViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE5320E1A18341F008C9B64 /* BlogViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		FBA3DE471A14E5F0000826F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBA3DE481A14E5F0000826F8 /* BlogTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlogTests.m; sourceTree = "<group>"; };
 		FBCECBE41A15F3C800388307 /* community.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = community.json; sourceTree = "<group>"; };
+		FBE5320D1A18341F008C9B64 /* BlogViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlogViewCell.h; sourceTree = "<group>"; };
+		FBE5320E1A18341F008C9B64 /* BlogViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlogViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,8 @@
 				FB473C541A16D96300E12ED0 /* right_arrow.jpg */,
 				FBCECBE41A15F3C800388307 /* community.json */,
 				FB8CE5861A178F84001E22E1 /* CommentViewCelll.h */,
+				FBE5320D1A18341F008C9B64 /* BlogViewCell.h */,
+				FBE5320E1A18341F008C9B64 /* BlogViewCell.m */,
 				FB8CE5871A178F84001E22E1 /* CommentViewCell.m */,
 				FB2DB62B1A15E92800125E28 /* Blogs.m */,
 				FB2DB62D1A15E94F00125E28 /* Blogs.h */,
@@ -251,6 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBE5320F1A18341F008C9B64 /* BlogViewCell.m in Sources */,
 				FB8CE5881A178F84001E22E1 /* CommentViewCell.m in Sources */,
 				FBA3DE2F1A14E5F0000826F8 /* AppDelegate.m in Sources */,
 				FBA3DE321A14E5F0000826F8 /* MasterViewController.m in Sources */,

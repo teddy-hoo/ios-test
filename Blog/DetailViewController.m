@@ -8,11 +8,12 @@
 
 #import "DetailViewController.h"
 #import "CommentViewCelll.h"
+#import "BlogViewCell.h"
 
 @interface DetailViewController ()
 
 @property (strong, nonatomic) NSDictionary *blog;
-@property (strong, nonatomic) NSArray *comments;
+@property (strong, nonatomic) NSMutableArray *comments;
 
 @end
 
@@ -66,6 +67,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    NSLog(@"%ld", (long)indexPath.row);
+    if(indexPath.row == 0){
+        return [self displayBlog:tableView];
+    }
+    
     CommentViewCell *cell = (CommentViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CommentCell"];
     if(cell == nil){
         cell = [[CommentViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CommentCell"];
@@ -91,6 +97,26 @@
         cell.avatar.layer.masksToBounds =YES;
         cell.avatar.layer.cornerRadius =50;
     }
+    
+    return cell;
+}
+
+- (UITableViewCell *) displayBlog:(UITableView*) tableView {
+    BlogViewCell *cell = (BlogViewCell *)[tableView dequeueReusableCellWithIdentifier:@"BlogCell"];
+    if(cell == nil){
+        cell = [[BlogViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BlogCell"];
+    }
+    
+    NSDictionary *author  = self.blog[@"author"];
+//    NSMutableAttributedString *lastCommenterText = [[NSMutableAttributedString alloc]
+//                                                    initWithString:[author[@"first_name"]
+//                                                                    stringByAppendingString:@" responded:"]];
+//    [lastCommenterText addAttribute:NSForegroundColorAttributeName
+//                              value:[UIColor blueColor]
+//                              range:NSMakeRange(lastCommenterText.length - 10,10)];
+//    cell.authorAndDate.attributedText = lastCommenterText;
+    cell.content.text  = self.blog[@"content"];
+    cell.authorAndDate = author[@"first_name"];
     
     return cell;
 }
