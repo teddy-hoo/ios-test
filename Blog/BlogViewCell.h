@@ -13,5 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *content;
 @property (weak, nonatomic) IBOutlet UILabel *commentAndView;
 @property (weak, nonatomic) IBOutlet UILabel *authorAndDate;
+@property (weak, nonatomic) IBOutlet UIButton *like;
+@property (weak, nonatomic) IBOutlet UIButton *share;
 
 @end

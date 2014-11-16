@@ -65,6 +65,13 @@
     return self.comments.count;
 }
 
+- (CGFloat)tableView:(UITableView  *)tableView  heightForRowAtIndexPath:(NSIndexPath  *)indexPath {
+    if (indexPath.row == 0){
+        return 200;
+    }
+    return 150;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if(indexPath.row == 0){
@@ -96,6 +103,10 @@
     }
     cell.avatar.layer.masksToBounds =YES;
     cell.avatar.layer.cornerRadius =13;
+    cell.like.layer.masksToBounds = YES;
+    cell.like.layer.cornerRadius = 3;
+    cell.reply.layer.masksToBounds = YES;
+    cell.reply.layer.cornerRadius = 3;
     
     return cell;
 }
@@ -115,6 +126,11 @@
     cell.content.text  = self.blog[@"content"];
     NSString *date = [self calculateDate:self.blog[@"time_created"]];
     cell.authorAndDate.text = [author[@"first_name"] stringByAppendingString:date];
+    
+    cell.like.layer.masksToBounds = YES;
+    cell.like.layer.cornerRadius = 3;
+    cell.share.layer.masksToBounds = YES;
+    cell.share.layer.cornerRadius = 3;
     
     return cell;
 }
