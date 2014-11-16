@@ -115,16 +115,16 @@
     cell.lastCommenter.attributedText = lastCommenterText;
     cell.title.text         = blog[@"title"];
     cell.content.text       = blog[@"content"];
-    cell.commentCount.text  = [blog[@"commentCount"] stringByAppendingString:@" responses..."];
+    cell.commentCount.text  = [blog[@"commentCount"] stringByAppendingString:@" responses"];
     
     NSString *avatarLink = blog[@"avatarOfCommenter"];
     if ((NSNull *)avatarLink != [NSNull null]) {
-//        NSURL *avatarUrl = [NSURL URLWithString:avatarLink];
-//        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
-//        cell.avatar.image = image;
-        cell.avatar.frame = CGRectMake(60,100, 100, 100);
-        cell.avatar.layer.masksToBounds =YES;
-        cell.avatar.layer.cornerRadius =50;
+        NSURL *avatarUrl = [NSURL URLWithString:avatarLink];
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
+        cell.avatar.image = image;
+//        cell.avatar.frame = CGRectMake(60,100, 100, 100);
+//        cell.avatar.layer.masksToBounds =YES;
+//        cell.avatar.layer.cornerRadius =50;
     }
     
     return cell;

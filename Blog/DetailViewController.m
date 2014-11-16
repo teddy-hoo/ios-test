@@ -67,7 +67,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"%ld", (long)indexPath.row);
     if(indexPath.row == 0){
         return [self displayBlog:tableView];
     }
@@ -79,9 +78,10 @@
     
     NSDictionary *comment = self.comments[indexPath.row];
     NSDictionary *author  = comment[@"author"];
+    NSString *date = [self calculateDate:comment[@"time_created"]];
     NSMutableAttributedString *lastCommenterText = [[NSMutableAttributedString alloc]
                                                     initWithString:[author[@"first_name"]
-                                                                    stringByAppendingString:@" responded:"]];
+                                                                    stringByAppendingString:date]];
     [lastCommenterText addAttribute:NSForegroundColorAttributeName
                               value:[UIColor blueColor]
                               range:NSMakeRange(lastCommenterText.length - 10,10)];
@@ -90,12 +90,12 @@
     
     NSString *avatarLink = author[@"profile_image"];
     if ((NSNull *)avatarLink != [NSNull null]) {
-        //        NSURL *avatarUrl = [NSURL URLWithString:avatarLink];
-        //        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
-        //        cell.avatar.image = image;
-        cell.avatar.frame = CGRectMake(60,100, 100, 100);
-        cell.avatar.layer.masksToBounds =YES;
-        cell.avatar.layer.cornerRadius =50;
+                NSURL *avatarUrl = [NSURL URLWithString:avatarLink];
+                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
+                cell.avatar.image = image;
+//        cell.avatar.frame = CGRectMake(60,100, 100, 100);
+//        cell.avatar.layer.masksToBounds =YES;
+//        cell.avatar.layer.cornerRadius =50;
     }
     
     return cell;
@@ -108,17 +108,29 @@
     }
     
     NSDictionary *author  = self.blog[@"author"];
-//    NSMutableAttributedString *lastCommenterText = [[NSMutableAttributedString alloc]
-//                                                    initWithString:[author[@"first_name"]
-//                                                                    stringByAppendingString:@" responded:"]];
-//    [lastCommenterText addAttribute:NSForegroundColorAttributeName
-//                              value:[UIColor blueColor]
-//                              range:NSMakeRange(lastCommenterText.length - 10,10)];
-//    cell.authorAndDate.attributedText = lastCommenterText;
+    NSString *commentsCount = [NSString stringWithFormat:@"%lu", (unsigned long)self.comments.count];
+    NSString *viewCount = [NSString stringWithFormat:@"%@", self.blog[@"views"]];
+    cell.commentAndView.text = [[[commentsCount stringByAppendingString:@" comments • "]
+                                 stringByAppendingString:viewCount] stringByAppendingString:@" views"];
+    cell.tagName.text  = self.blog[@"tag"];
     cell.content.text  = self.blog[@"content"];
-    cell.authorAndDate = author[@"first_name"];
+    NSString *date = [self calculateDate:self.blog[@"time_created"]];
+    cell.authorAndDate.text = [author[@"first_name"] stringByAppendingString:date];
     
     return cell;
+}
+
+- (NSString *)calculateDate:(NSString *)date {
+    NSDate *createdTime = [[NSDate alloc] initWithTimeIntervalSince1970:
+                      [date doubleValue] / 1.0];
+    NSTimeInterval interval = [createdTime timeIntervalSinceNow];
+    NSInteger days = (NSInteger) interval / 3600 / 24;
+    NSInteger hours = (NSInteger) (interval - days * 3600 * 24) / 3600;
+    days = 0 - days;
+    hours = 0 - hours;
+    NSString *intervalStr = [NSString stringWithFormat:@" • %ld days, %ld hours ago",
+                             (long)days, (long)hours];
+    return intervalStr;
 }
 
 @end
