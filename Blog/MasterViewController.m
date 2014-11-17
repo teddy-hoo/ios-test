@@ -171,7 +171,7 @@
     }
     cell.tagName.textColor = color;
     cell.tagName.backgroundColor = backgroud;
-    cell.tagName.text       = [blog[@"tag"] stringByAppendingString:@" > "];
+    cell.tagName.text       = [blog[@"tag"] stringByAppendingString:@" >  "];
     NSMutableAttributedString *lastCommenterText = [[NSMutableAttributedString alloc]
                                                     initWithString:[blog[@"latestCommenter"]
                                                                     stringByAppendingString:@" responded:"]];
