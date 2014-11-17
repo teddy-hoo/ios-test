@@ -16,6 +16,9 @@
 @property NSMutableArray *objects;
 @property (strong, nonatomic)NSMutableArray *blogs;
 @property (strong, nonatomic)NSMutableDictionary *styles;
+@property (strong, nonatomic)NSMutableArray *colors;
+@property (nonatomic)  NSUInteger indexOfColors;
+@property (strong, nonatomic)NSMutableArray *backgrouds;
 
 @end
 
@@ -25,6 +28,13 @@
     [super awakeFromNib];
 }
 
+- (NSUInteger)indexOfColors{
+    if (!_indexOfColors || _indexOfColors >= _colors.count) {
+        _indexOfColors = 0;
+    }
+    return _indexOfColors;
+}
+
 - (NSMutableArray *)blogs {
     if (!_blogs) {
         _blogs = [[NSMutableArray alloc] init];
@@ -32,11 +42,55 @@
     return _blogs;
 }
 
+- (NSMutableArray *)backgrouds {
+    if (!_backgrouds) {
+        _backgrouds = [[NSMutableArray alloc] init];
+        [_backgrouds setObject:[UIColor colorWithRed:45 / 255.0
+                                           green:100 / 255.0
+                                            blue:180 / 255.0
+                                           alpha:0.1]
+        atIndexedSubscript:0];
+        [_backgrouds setObject:[UIColor colorWithRed:250 / 255.0
+                                           green:200 / 255.0
+                                            blue:30 / 255.0
+                                           alpha:0.1]
+        atIndexedSubscript:1];
+        [_backgrouds setObject:[UIColor colorWithRed:10 / 255.0
+                                           green:180 / 255.0
+                                            blue:220 / 255.0
+                                           alpha:0.1]
+        atIndexedSubscript:2];
+        
+    }
+    return _backgrouds;
+}
+
+- (NSMutableArray *)colors {
+    if (!_colors) {
+        _colors = [[NSMutableArray alloc] init];
+        [_colors setObject:[UIColor colorWithRed:45 / 255.0
+                                           green:100 / 255.0
+                                            blue:180 / 255.0
+                                           alpha:1.0]
+        atIndexedSubscript:0];
+        [_colors setObject:[UIColor colorWithRed:250 / 255.0
+                                           green:200 / 255.0
+                                            blue:30 / 255.0
+                                           alpha:1.0]
+        atIndexedSubscript:1];
+        [_colors setObject:[UIColor colorWithRed:10 / 255.0
+                                           green:180 / 255.0
+                                            blue:220 / 255.0
+                                           alpha:1.0]
+        atIndexedSubscript:2];
+        
+    }
+    return _colors;
+}
+
 - (NSMutableDictionary *)styles {
     if (!_styles) {
         _styles = [[NSMutableDictionary alloc] init];
-        [_styles setObject:@"1" forKey:@"Sex & Relationships"];
-        [_styles setObject:@"2" forKey:@"Glow Support"];
     }
     return _styles;
 }
@@ -95,17 +149,29 @@
     }
  
     NSDictionary *blog      = self.objects[indexPath.row];
+    [self setCellContent:cell blogDictionary:blog];
+    
+    return cell;
+}
+
+- (void)setCellContent:(MainViewCell *)cell blogDictionary:(NSDictionary *)blog{
     NSString *tagN = blog[@"tag"];
+    UIColor *color;
+    UIColor *backgroud;
     if (self.styles[tagN] != nil) {
-        NSString *i = self.styles[tagN];
-        if ([i isEqual: @"1"]) {
-            cell.tagName.textColor = [UIColor greenColor];
-        }
-        else {
-            cell.tagName.textColor = [UIColor purpleColor];
-        }
+        NSInteger i = [self.styles[tagN] integerValue];
+        color = self.colors[i];
+        backgroud = self.backgrouds[i];
     }
-    cell.tagName.text       = blog[@"tag"];
+    else {
+        [self.styles setObject:[NSString stringWithFormat:@"%lu",(unsigned long)self.indexOfColors] forKey:tagN];
+        color = self.colors[self.indexOfColors];
+        backgroud = self.backgrouds[self.indexOfColors];
+        self.indexOfColors += 1;
+    }
+    cell.tagName.textColor = color;
+    cell.tagName.backgroundColor = backgroud;
+    cell.tagName.text       = [blog[@"tag"] stringByAppendingString:@" > "];
     NSMutableAttributedString *lastCommenterText = [[NSMutableAttributedString alloc]
                                                     initWithString:[blog[@"latestCommenter"]
                                                                     stringByAppendingString:@" responded:"]];
@@ -119,27 +185,13 @@
     
     NSString *avatarLink = blog[@"avatarOfCommenter"];
     if ((NSNull *)avatarLink != [NSNull null]) {
-//        NSURL *avatarUrl = [NSURL URLWithString:avatarLink];
-//        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
-//        cell.avatar.image = image;
+        NSURL *avatarUrl = [NSURL URLWithString:avatarLink];
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
+        cell.avatar.image = image;
     }
-    cell.avatar.layer.masksToBounds =YES;
-    cell.avatar.layer.cornerRadius =13;
-    
-    return cell;
-}
+    cell.avatar.layer.masksToBounds = YES;
+    cell.avatar.layer.cornerRadius = 13;
 
-- (void)fixWidth:(UILabel*)label {
-    
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
-    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    NSDictionary *attributes = @{NSFontAttributeName:label.font, NSParagraphStyleAttributeName:paragraphStyle.copy};
-    
-    CGSize fixedSize = [label.text boundingRectWithSize:CGSizeMake(1000, 50)
-                                           options:NSStringDrawingUsesLineFragmentOrigin
-                                        attributes:attributes context:nil].size;
-    label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y,
-                             fixedSize.width, fixedSize.height);
 }
 
 @end
