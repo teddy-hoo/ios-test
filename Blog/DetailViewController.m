@@ -40,7 +40,7 @@
         self.comments = self.blog[@"comments"];
         NSMutableArray *newArray = [[NSMutableArray alloc] init];
         [newArray insertObject:self.comments[0] atIndex:0];
-        for (NSInteger i = 1; i < self.comments.count; i++) {
+        for (NSInteger i = 1; i <= self.comments.count; i++) {
             [newArray insertObject:self.comments[i - 1] atIndex:i];
         }
         self.comments = newArray;
@@ -100,14 +100,7 @@
                               range:NSMakeRange(0,lastCommenterText.length - date.length)];
     cell.commenter.attributedText = lastCommenterText;
     cell.content.text             = comment[@"content"];
-    NSString *avatarLink = author[@"profile_image"];
-    if ((NSNull *)avatarLink != [NSNull null]) {
-        NSURL *avatarUrl = [NSURL URLWithString:avatarLink];
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
-        cell.avatar.image = image;
-    }
-    cell.avatar.layer.masksToBounds =YES;
-    cell.avatar.layer.cornerRadius =13;
+    [self setAvatar:cell.avatar avatarLink:author[@"profile_image"]];
     cell.like.layer.masksToBounds = YES;
     cell.like.layer.cornerRadius = 3;
     cell.reply.layer.masksToBounds = YES;
@@ -125,6 +118,25 @@
     [self rePostionButton:cell.reply textHeight:height];
     [self rePositionLabel:cell.report textHeight:height];
     return cell;
+}
+
+- (void) setAvatar:(UIImageView *)avatar avatarLink:(NSString *)avatarLink {
+    NSOperationQueue *operationQueue = [[NSOperationQueue alloc] init];
+    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:avatar, @"avatar",
+                            avatarLink, @"avatarLink", nil];
+    NSInvocationOperation *op = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadImage:) object:params];
+    if ((NSNull *)avatarLink != [NSNull null]) {
+        [operationQueue addOperation:op];
+    }
+    avatar.layer.masksToBounds = YES;
+    avatar.layer.cornerRadius = 13;
+}
+
+- (void) loadImage:(NSDictionary *)params {
+    NSURL *avatarUrl = [NSURL URLWithString:params[@"avatarLink"]];
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
+    UIImageView *avatar = params[@"avatar"];
+    avatar.image = image;
 }
 
 - (UITableViewCell *) displayBlog:(UITableView*) tableView {
