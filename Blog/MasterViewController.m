@@ -48,17 +48,17 @@
         [_backgrouds setObject:[UIColor colorWithRed:45 / 255.0
                                            green:100 / 255.0
                                             blue:180 / 255.0
-                                           alpha:0.1]
+                                           alpha:0.2]
         atIndexedSubscript:0];
         [_backgrouds setObject:[UIColor colorWithRed:250 / 255.0
                                            green:200 / 255.0
                                             blue:30 / 255.0
-                                           alpha:0.1]
+                                           alpha:0.2]
         atIndexedSubscript:1];
         [_backgrouds setObject:[UIColor colorWithRed:10 / 255.0
                                            green:180 / 255.0
                                             blue:220 / 255.0
-                                           alpha:0.1]
+                                           alpha:0.2]
         atIndexedSubscript:2];
         
     }
@@ -141,6 +141,10 @@
     return self.objects.count;
 }
 
+- (CGFloat)tableView:(UITableView  *)tableView  heightForRowAtIndexPath:(NSIndexPath  *)indexPath {
+    return [self getTitleHeight:self.objects[indexPath.row][@"title"]] + 100;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MainViewCell *cell = (MainViewCell *)[tableView dequeueReusableCellWithIdentifier:@"MainCell"];
@@ -155,33 +159,14 @@
 }
 
 - (void)setCellContent:(MainViewCell *)cell blogDictionary:(NSDictionary *)blog{
-    NSString *tagN = blog[@"tag"];
-    UIColor *color;
-    UIColor *backgroud;
-    if (self.styles[tagN] != nil) {
-        NSInteger i = [self.styles[tagN] integerValue];
-        color = self.colors[i];
-        backgroud = self.backgrouds[i];
-    }
-    else {
-        [self.styles setObject:[NSString stringWithFormat:@"%lu",(unsigned long)self.indexOfColors] forKey:tagN];
-        color = self.colors[self.indexOfColors];
-        backgroud = self.backgrouds[self.indexOfColors];
-        self.indexOfColors += 1;
-    }
-    cell.tagName.textColor = color;
-    cell.tagName.backgroundColor = backgroud;
-    cell.tagName.text       = [blog[@"tag"] stringByAppendingString:@" >  "];
-    NSMutableAttributedString *lastCommenterText = [[NSMutableAttributedString alloc]
-                                                    initWithString:[blog[@"latestCommenter"]
-                                                                    stringByAppendingString:@" responded:"]];
-    [lastCommenterText addAttribute:NSForegroundColorAttributeName
-                              value:[UIColor grayColor]
-                              range:NSMakeRange(lastCommenterText.length - 10,10)];
-    cell.lastCommenter.attributedText = lastCommenterText;
+    NSString *tagStr        = blog[@"tag"];
+    [self setTagName:cell.tagName tagString:tagStr];
+    NSString *commenter     = blog[@"latestCommenter"];
+    [self setLastCommnter:cell.lastCommenter commenter:commenter];
     cell.title.text         = blog[@"title"];
-    cell.content.text       = blog[@"content"];
-    cell.commentCount.text  = [blog[@"commentCount"] stringByAppendingString:@" responses"];
+    CGFloat height = [self getTitleHeight:blog[@"title"]];
+    [self setContent:cell.content contentText:blog[@"content"] height:height];
+    [self setCountOfResponses:cell.commentCount count:blog[@"commentCount"] height:height];
     
     NSString *avatarLink = blog[@"avatarOfCommenter"];
     if ((NSNull *)avatarLink != [NSNull null]) {
@@ -191,7 +176,73 @@
     }
     cell.avatar.layer.masksToBounds = YES;
     cell.avatar.layer.cornerRadius = 13;
+}
 
+- (void) setCountOfResponses:(UILabel *)countOfRepsonses count:(NSString *) count height:(CGFloat) height {
+    count  = [count stringByAppendingString:@" responses"];
+    countOfRepsonses.text = count;
+    [self rePositionLabel:countOfRepsonses textHeight:height + 18];
+}
+
+- (void) setContent:(UILabel *)content contentText:(NSString *) contentText height:(CGFloat) height {
+    content.text = contentText;
+    [self rePositionLabel:content textHeight:height];
+}
+
+- (void) rePositionLabel:(UILabel *)label textHeight:(CGFloat)height {
+    [label setTranslatesAutoresizingMaskIntoConstraints:YES];
+    CGRect newFrame = label.frame;
+    newFrame.origin.y = height + 55;
+    label.frame = newFrame;
+}
+
+- (void) setLastCommnter:(UILabel *)lastCommenter commenter:(NSString *)commenter {
+    NSMutableAttributedString *lastCommenterText = [[NSMutableAttributedString alloc]
+                                                    initWithString:[commenter
+                                                                    stringByAppendingString:@" responded:"]];
+    [lastCommenterText addAttribute:NSForegroundColorAttributeName
+                              value:[UIColor blueColor]
+                              range:NSMakeRange(0,commenter.length)];
+    lastCommenter.attributedText = lastCommenterText;
+}
+
+- (void) setTagName:(UILabel *)tagName tagString:(NSString *)tagStr {
+    UIColor *color;
+    UIColor *backgroud;
+    if (self.styles[tagStr] != nil) {
+        NSInteger i = [self.styles[tagStr] integerValue];
+        color = self.colors[i];
+        backgroud = self.backgrouds[i];
+    }
+    else {
+        [self.styles setObject:[NSString stringWithFormat:@"%lu",(unsigned long)self.indexOfColors] forKey:tagStr];
+        color = self.colors[self.indexOfColors];
+        backgroud = self.backgrouds[self.indexOfColors];
+        self.indexOfColors += 1;
+    }
+    tagName.textColor           = color;
+    tagName.backgroundColor     = backgroud;
+    tagName.text                = [tagStr stringByAppendingString:@" >  "];
+    tagName.layer.masksToBounds = YES;
+    tagName.layer.cornerRadius  = 4;
+}
+
+- (CGFloat)getTitleHeight:(NSString *)text {
+    CGSize constSize = CGSizeMake(310.f, 500.f);
+    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+    NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [UIFont systemFontOfSize:18],
+                                          NSFontAttributeName,
+                                          paragraph, NSParagraphStyleAttributeName,
+                                          nil];
+    NSMutableAttributedString *attrText = [[NSMutableAttributedString alloc]
+                                           initWithString: text
+                                           attributes:attributesDictionary];
+    CGSize fixedSize = [attrText boundingRectWithSize:constSize
+                                          options:NSStringDrawingUsesLineFragmentOrigin
+                                          context:nil].size;
+    return fixedSize.height;
 }
 
 @end

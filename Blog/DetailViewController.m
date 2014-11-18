@@ -69,7 +69,7 @@
     if (indexPath.row == 0){
         return 200;
     }
-    return [self getTextHeight:self.comments[indexPath.row][@"content"]] + 90;
+    return [self getTextHeight:self.comments[indexPath.row][@"content"]] + 70;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -175,7 +175,7 @@
     NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
     NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                          [UIFont fontWithName:@"Helvetica Neue Light" size:15], NSFontAttributeName,
+                                          [UIFont systemFontOfSize:14], NSFontAttributeName,
                                           paragraph, NSParagraphStyleAttributeName,
                                           nil];
     CGSize fixedSize = [text boundingRectWithSize:constSize
@@ -187,14 +187,14 @@
 - (void)rePostionButton:(UIButton *)btn textHeight:(CGFloat)height {
     [btn setTranslatesAutoresizingMaskIntoConstraints:YES];
     CGRect newFrame = btn.frame;
-    newFrame.origin.y = height + 60;
+    newFrame.origin.y = height + 40;
     btn.frame = newFrame;
 }
 
 - (void) rePositionLabel:(UILabel *)label textHeight:(CGFloat)height {
     [label setTranslatesAutoresizingMaskIntoConstraints:YES];
     CGRect newFrame = label.frame;
-    newFrame.origin.y = height + 60;
+    newFrame.origin.y = height + 40;
     label.frame = newFrame;
 }
 
