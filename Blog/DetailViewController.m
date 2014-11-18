@@ -69,7 +69,7 @@
     if (indexPath.row == 0){
         return 200;
     }
-    return [self getTextHeight:self.comments[indexPath.row][@"content"]] + 70;
+    return [self getTextHeight:self.comments[indexPath.row][@"content"]] + 110;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -187,14 +187,14 @@
 - (void)rePostionButton:(UIButton *)btn textHeight:(CGFloat)height {
     [btn setTranslatesAutoresizingMaskIntoConstraints:YES];
     CGRect newFrame = btn.frame;
-    newFrame.origin.y = height + 40;
+    newFrame.origin.y = height + 60;
     btn.frame = newFrame;
 }
 
 - (void) rePositionLabel:(UILabel *)label textHeight:(CGFloat)height {
     [label setTranslatesAutoresizingMaskIntoConstraints:YES];
     CGRect newFrame = label.frame;
-    newFrame.origin.y = height + 40;
+    newFrame.origin.y = height + 60;
     label.frame = newFrame;
 }
 

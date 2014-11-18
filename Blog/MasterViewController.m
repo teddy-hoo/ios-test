@@ -48,18 +48,23 @@
         [_backgrouds setObject:[UIColor colorWithRed:45 / 255.0
                                            green:100 / 255.0
                                             blue:180 / 255.0
-                                           alpha:0.2]
+                                           alpha:0.3]
         atIndexedSubscript:0];
         [_backgrouds setObject:[UIColor colorWithRed:250 / 255.0
                                            green:200 / 255.0
                                             blue:30 / 255.0
-                                           alpha:0.2]
+                                           alpha:0.3]
         atIndexedSubscript:1];
         [_backgrouds setObject:[UIColor colorWithRed:10 / 255.0
                                            green:180 / 255.0
                                             blue:220 / 255.0
-                                           alpha:0.2]
+                                           alpha:0.3]
         atIndexedSubscript:2];
+        [_backgrouds setObject:[UIColor colorWithRed:150 / 255.0
+                                           green:200 / 255.0
+                                            blue:100 / 255.0
+                                           alpha:0.3]
+        atIndexedSubscript:3];
         
     }
     return _backgrouds;
@@ -68,9 +73,9 @@
 - (NSMutableArray *)colors {
     if (!_colors) {
         _colors = [[NSMutableArray alloc] init];
-        [_colors setObject:[UIColor colorWithRed:45 / 255.0
-                                           green:100 / 255.0
-                                            blue:180 / 255.0
+        [_colors setObject:[UIColor colorWithRed:110 / 255.0
+                                           green:110 / 255.0
+                                            blue:220 / 255.0
                                            alpha:1.0]
         atIndexedSubscript:0];
         [_colors setObject:[UIColor colorWithRed:250 / 255.0
@@ -83,6 +88,11 @@
                                             blue:220 / 255.0
                                            alpha:1.0]
         atIndexedSubscript:2];
+        [_colors setObject:[UIColor colorWithRed:150 / 255.0
+                                           green:200 / 255.0
+                                            blue:100 / 255.0
+                                           alpha:1.0]
+        atIndexedSubscript:3];
         
     }
     return _colors;
@@ -167,15 +177,24 @@
     CGFloat height = [self getTitleHeight:blog[@"title"]];
     [self setContent:cell.content contentText:blog[@"content"] height:height];
     [self setCountOfResponses:cell.commentCount count:blog[@"commentCount"] height:height];
-    
-    NSString *avatarLink = blog[@"avatarOfCommenter"];
+    [self setAvatar:cell.avatar avatarLink:blog[@"avatarOfCommenter"]];
+}
+
+- (void) setAvatar:(UIImageView *)avatar avatarLink:(NSString *)avatarLink {
+    NSOperationQueue *operationQueue = [[NSOperationQueue alloc] init];
+    NSInvocationOperation *op = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadImage:avatarLink:) object:nil];
+    [operationQueue addOperation:op];
     if ((NSNull *)avatarLink != [NSNull null]) {
-        NSURL *avatarUrl = [NSURL URLWithString:avatarLink];
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
-        cell.avatar.image = image;
+        [self loadImage:avatar avatarLink:avatarLink];
     }
-    cell.avatar.layer.masksToBounds = YES;
-    cell.avatar.layer.cornerRadius = 13;
+    avatar.layer.masksToBounds = YES;
+    avatar.layer.cornerRadius = 13;
+}
+
+- (void) loadImage:(UIImageView *)avatar avatarLink:(NSString *)avatarLink {
+    NSURL *avatarUrl = [NSURL URLWithString:avatarLink];
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
+    avatar.image = image;
 }
 
 - (void) setCountOfResponses:(UILabel *)countOfRepsonses count:(NSString *) count height:(CGFloat) height {
