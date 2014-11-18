@@ -10,7 +10,7 @@
 
 @interface DetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) NSDictionary *detailItem;
+@property (strong, nonatomic) NSMutableDictionary *detailItem;
 @property (weak, nonatomic) IBOutlet UITableView *commentsDetail;
 
 @end

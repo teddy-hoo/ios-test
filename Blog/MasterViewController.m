@@ -124,7 +124,7 @@
         self.objects = [[NSMutableArray alloc] init];
     }
     for (id item in self.blogs) {
-        NSDictionary *blog = item;
+        NSMutableDictionary *blog = item;
         [self.objects insertObject: blog atIndex:0];
     }
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
@@ -136,7 +136,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDictionary *object = self.objects[indexPath.row];
+        NSMutableDictionary *object = self.objects[indexPath.row];
         [[segue destinationViewController] setDetailItem:object];
     }
 }

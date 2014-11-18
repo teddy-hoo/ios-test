@@ -53,7 +53,7 @@
         
         NSInteger count;
         NSMutableString *commenter;
-        NSString *url;
+        NSMutableString *url;
         NSInteger latest = 0;
         NSMutableArray *comments = blog[@"comments"];
         count = comments.count;
@@ -62,11 +62,11 @@
         [newBlog setObject:str forKey:@"commentCount"];
         
         for(id item in comments){
-            NSDictionary *comment = item;
+            NSMutableDictionary *comment = item;
             NSInteger cur = [comment[@"time_created"] intValue];
             if (cur > latest){
                 latest = cur;
-                NSDictionary *author = comment[@"author"];
+                NSMutableDictionary *author = comment[@"author"];
                 commenter = author[@"first_name"];
                 url = author[@"profile_image"];
             }

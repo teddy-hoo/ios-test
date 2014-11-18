@@ -12,7 +12,7 @@
 
 @interface DetailViewController ()
 
-@property (strong, nonatomic) NSDictionary *blog;
+@property (strong, nonatomic) NSMutableDictionary *blog;
 @property (strong, nonatomic) NSMutableArray *comments;
 
 @end
@@ -38,6 +38,12 @@
     if (self.detailItem) {
         self.blog = self.detailItem;
         self.comments = self.blog[@"comments"];
+        NSMutableArray *newArray = [[NSMutableArray alloc] init];
+        [newArray insertObject:self.comments[0] atIndex:0];
+        for (NSInteger i = 1; i < self.comments.count; i++) {
+            [newArray insertObject:self.comments[i - 1] atIndex:i];
+        }
+        self.comments = newArray;
     }
 }
 
