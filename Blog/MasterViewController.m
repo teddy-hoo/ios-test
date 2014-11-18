@@ -182,18 +182,20 @@
 
 - (void) setAvatar:(UIImageView *)avatar avatarLink:(NSString *)avatarLink {
     NSOperationQueue *operationQueue = [[NSOperationQueue alloc] init];
-    NSInvocationOperation *op = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadImage:avatarLink:) object:nil];
-    [operationQueue addOperation:op];
+    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:avatar, @"avatar",
+    avatarLink, @"avatarLink", nil];
+    NSInvocationOperation *op = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadImage:) object:params];
     if ((NSNull *)avatarLink != [NSNull null]) {
-        [self loadImage:avatar avatarLink:avatarLink];
+        [operationQueue addOperation:op];
     }
     avatar.layer.masksToBounds = YES;
     avatar.layer.cornerRadius = 13;
 }
 
-- (void) loadImage:(UIImageView *)avatar avatarLink:(NSString *)avatarLink {
-    NSURL *avatarUrl = [NSURL URLWithString:avatarLink];
+- (void) loadImage:(NSDictionary *)params {
+    NSURL *avatarUrl = [NSURL URLWithString:params[@"avatarLink"]];
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
+    UIImageView *avatar = params[@"avatar"];
     avatar.image = image;
 }
 
