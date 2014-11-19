@@ -10,6 +10,7 @@
 #import "DetailViewController.h"
 #import "Blogs.h"
 #import "MainViewCell.h"
+#import "Helpers.h"
 
 @interface MasterViewController ()
 
@@ -189,46 +190,18 @@
     CGFloat height = [self getTitleHeight:blog[@"title"]];
     [self setContent:cell.content contentText:blog[@"content"] height:height];
     [self setCountOfResponses:cell.commentCount count:blog[@"commentCount"] height:height];
-    [self setAvatar:cell.avatar avatarLink:blog[@"avatarOfCommenter"]];
-}
-
-- (void) setAvatar:(UIImageView *)avatar avatarLink:(NSString *)avatarLink {
-    NSOperationQueue *operationQueue = [[NSOperationQueue alloc] init];
-    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:avatar, @"avatar",
-    avatarLink, @"avatarLink", nil];
-    NSInvocationOperation *op = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadImage:) object:params];
-    if ((NSNull *)avatarLink != [NSNull null]) {
-        UIImage *image = [UIImage animatedImageNamed:@"loading" duration:0.5f];
-        avatar.image = image;
-        [operationQueue addOperation:op];
-    }
-    avatar.layer.masksToBounds = YES;
-    avatar.layer.cornerRadius = avatar.frame.size.height / 2;
-}
-
-- (void) loadImage:(NSDictionary *)params {
-    NSURL *avatarUrl = [NSURL URLWithString:params[@"avatarLink"]];
-    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
-    UIImageView *avatar = params[@"avatar"];
-    avatar.image = image;
+    [Helpers setAvatar:cell.avatar avatarLink:blog[@"avatarOfCommenter"]];
 }
 
 - (void) setCountOfResponses:(UILabel *)countOfRepsonses count:(NSString *) count height:(CGFloat) height {
     count  = [count stringByAppendingString:@" responses"];
     countOfRepsonses.text = count;
-    [self rePositionLabel:countOfRepsonses textHeight:height + 18];
+    [Helpers rePositionLabel:countOfRepsonses textHeight:height + 18];
 }
 
 - (void) setContent:(UILabel *)content contentText:(NSString *) contentText height:(CGFloat) height {
     content.text = contentText;
-    [self rePositionLabel:content textHeight:height];
-}
-
-- (void) rePositionLabel:(UILabel *)label textHeight:(CGFloat)height {
-    [label setTranslatesAutoresizingMaskIntoConstraints:YES];
-    CGRect newFrame = label.frame;
-    newFrame.origin.y = height + 55;
-    label.frame = newFrame;
+    [Helpers rePositionLabel:content textHeight:height];
 }
 
 - (void) setLastCommnter:(UILabel *)lastCommenter commenter:(NSString *)commenter {

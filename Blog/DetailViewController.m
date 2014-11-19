@@ -9,6 +9,7 @@
 #import "DetailViewController.h"
 #import "CommentViewCelll.h"
 #import "BlogViewCell.h"
+#import "Helpers.h"
 
 @interface DetailViewController ()
 
@@ -75,7 +76,7 @@
     if (indexPath.row == 0){
         return 200;
     }
-    return [self getTextHeight:self.comments[indexPath.row][@"content"]] + 110;
+    return [Helpers getTextHeight:self.comments[indexPath.row][@"content"]] + 110;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -103,7 +104,7 @@
     
     NSDictionary *comment = self.comments[indexPath.row];
     NSDictionary *author  = comment[@"author"];
-    NSString *date = [self calculateDate:comment[@"time_created"]];
+    NSString *date = [Helpers calculateDate:comment[@"time_created"]];
     NSMutableAttributedString *lastCommenterText = [[NSMutableAttributedString alloc]
                                                     initWithString:[author[@"first_name"]
                                                                     stringByAppendingString:date]];
@@ -112,7 +113,7 @@
                               range:NSMakeRange(0,lastCommenterText.length - date.length)];
     cell.commenter.attributedText = lastCommenterText;
     cell.content.text             = comment[@"content"];
-    [self setAvatar:cell.avatar avatarLink:author[@"profile_image"]];
+    [Helpers setAvatar:cell.avatar avatarLink:author[@"profile_image"]];
     cell.like.layer.masksToBounds = YES;
     cell.like.layer.cornerRadius = 3;
     cell.reply.layer.masksToBounds = YES;
@@ -125,32 +126,11 @@
                                                  green:220 / 255.0
                                                   blue:200 / 255.0
                                                  alpha:0.2];
-    CGFloat height = [self getTextHeight:comment[@"content"]];
-    [self rePostionButton:cell.like textHeight:height];
-    [self rePostionButton:cell.reply textHeight:height];
-    [self rePositionLabel:cell.report textHeight:height];
+    CGFloat height = [Helpers getTextHeight:comment[@"content"]];
+    [Helpers rePostionButton:cell.like textHeight:height];
+    [Helpers rePostionButton:cell.reply textHeight:height];
+    [Helpers rePositionLabel:cell.report textHeight:height];
     return cell;
-}
-
-- (void) setAvatar:(UIImageView *)avatar avatarLink:(NSString *)avatarLink {
-    NSOperationQueue *operationQueue = [[NSOperationQueue alloc] init];
-    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:avatar, @"avatar",
-                            avatarLink, @"avatarLink", nil];
-    NSInvocationOperation *op = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadImage:) object:params];
-    if ((NSNull *)avatarLink != [NSNull null]) {
-        UIImage *image = [UIImage animatedImageNamed:@"loading" duration:0.5f];
-        avatar.image = image;
-        [operationQueue addOperation:op];
-    }
-    avatar.layer.masksToBounds = YES;
-    avatar.layer.cornerRadius = avatar.frame.size.height / 2;
-}
-
-- (void) loadImage:(NSDictionary *)params {
-    NSURL *avatarUrl = [NSURL URLWithString:params[@"avatarLink"]];
-    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:avatarUrl]];
-    UIImageView *avatar = params[@"avatar"];
-    avatar.image = image;
 }
 
 - (UITableViewCell *) displayBlog:(UITableView*) tableView {
@@ -166,15 +146,12 @@
                                  stringByAppendingString:viewCount] stringByAppendingString:@" views"];
     cell.tagName.text  = self.blog[@"tag"];
     cell.content.text  = self.blog[@"content"];
-    NSAttributedString *date = [[NSMutableAttributedString alloc] initWithString:[self calculateDate:self.blog[@"time_created"]]];
+    NSAttributedString *date = [[NSMutableAttributedString alloc] initWithString:[Helpers calculateDate:self.blog[@"time_created"]]];
     UIFont *systemFont = [UIFont fontWithName:@"HelveticaNeue" size:13.0f];
     NSDictionary * fontAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:systemFont, NSFontAttributeName, nil];
     NSMutableAttributedString *authorAndDate = [[NSMutableAttributedString alloc]
                                          initWithString:[@"Posted by " stringByAppendingString:author[@"first_name"]]                                             attributes:fontAttributes];
     [authorAndDate appendAttributedString:date];
-//                                                stringByAppendingString:date]]
-//    [authorAndDate addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor]
-//                              range:NSMakeRange(0,authorAndDate.length - date.length)];
     cell.authorAndDate.attributedText = authorAndDate;
     
     cell.like.layer.masksToBounds = YES;
@@ -190,47 +167,6 @@
                                                   blue:200 / 255.0
                                                  alpha:0.2];
     return cell;
-}
-
-- (NSString *)calculateDate:(NSString *)date {
-    NSDate *createdTime = [[NSDate alloc] initWithTimeIntervalSince1970:
-                      [date doubleValue] / 1.0];
-    NSTimeInterval interval = [createdTime timeIntervalSinceNow];
-    NSInteger days = (NSInteger) interval / 3600 / 24;
-    NSInteger hours = (NSInteger) (interval - days * 3600 * 24) / 3600;
-    days = 0 - days;
-    hours = 0 - hours;
-    NSString *intervalStr = [NSString stringWithFormat:@" ∙ %ld days, %ld hours ago",
-                             (long)days, (long)hours];
-    return intervalStr;
-}
-
-- (CGFloat)getTextHeight:(NSString *)text {
-    CGSize constSize = CGSizeMake(300.f, 500.f);
-    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
-    NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                          [UIFont systemFontOfSize:14], NSFontAttributeName,
-                                          paragraph, NSParagraphStyleAttributeName,
-                                          nil];
-    CGSize fixedSize = [text boundingRectWithSize:constSize
-                                          options:NSStringDrawingUsesLineFragmentOrigin
-                                       attributes:attributesDictionary context:nil].size;
-    return fixedSize.height;
-}
-
-- (void)rePostionButton:(UIButton *)btn textHeight:(CGFloat)height {
-    [btn setTranslatesAutoresizingMaskIntoConstraints:YES];
-    CGRect newFrame = btn.frame;
-    newFrame.origin.y = height + 60;
-    btn.frame = newFrame;
-}
-
-- (void) rePositionLabel:(UILabel *)label textHeight:(CGFloat)height {
-    [label setTranslatesAutoresizingMaskIntoConstraints:YES];
-    CGRect newFrame = label.frame;
-    newFrame.origin.y = height + 60;
-    label.frame = newFrame;
 }
 
 @end
