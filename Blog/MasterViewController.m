@@ -153,7 +153,7 @@
 }
 
 - (CGFloat)tableView:(UITableView  *)tableView  heightForRowAtIndexPath:(NSIndexPath  *)indexPath {
-    return [self getTitleHeight:self.objects[indexPath.row][@"title"]] + 100;
+    return [Helpers getTextHeight:self.objects[indexPath.row][@"title"] fontSize:18.0f] + 100;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(MainViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
