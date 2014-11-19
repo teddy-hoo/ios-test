@@ -114,7 +114,7 @@
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="avatar.png" translatesAutoresizingMaskIntoConstraints="NO" id="Nel-IV-Gvw">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="Nel-IV-Gvw">
                                             <rect key="frame" x="292" y="28" width="26" height="26"/>
                                         </imageView>
                                     </subviews>
@@ -294,8 +294,8 @@
                                                         </attributedString>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="avatar.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aug-yv-mBB">
-                                                        <rect key="frame" x="287" y="8" width="26" height="26"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="Aug-yv-mBB">
+                                                        <rect key="frame" x="287" y="8" width="30" height="30"/>
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EaZ-1M-UbP">
                                                         <rect key="frame" x="42" y="113" width="50" height="25"/>
@@ -357,6 +357,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="avatar.png" width="175" height="175"/>
+        <image name="avatar" width="175" height="175"/>
     </resources>
 </document>

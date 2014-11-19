@@ -143,7 +143,7 @@
         [operationQueue addOperation:op];
     }
     avatar.layer.masksToBounds = YES;
-    avatar.layer.cornerRadius = 13;
+    avatar.layer.cornerRadius = 15;
 }
 
 - (void) loadImage:(NSDictionary *)params {
