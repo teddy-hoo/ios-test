@@ -126,6 +126,8 @@
                             avatarLink, @"avatarLink", nil];
     NSInvocationOperation *op = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadImage:) object:params];
     if ((NSNull *)avatarLink != [NSNull null]) {
+        UIImage *image = [UIImage animatedImageNamed:@"loading" duration:0.5f];
+        avatar.image = image;
         [operationQueue addOperation:op];
     }
     avatar.layer.masksToBounds = YES;
