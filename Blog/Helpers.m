@@ -54,12 +54,12 @@
     avatar.image = image;
 }
 
-+ (CGFloat)getTextHeight:(NSString *)text {
++ (CGFloat)getTextHeight:(NSString *)text fontSize:(CGFloat)size {
     CGSize constSize = CGSizeMake(300.f, 500.f);
     NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
     NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                          [UIFont systemFontOfSize:14], NSFontAttributeName,
+                                          [UIFont systemFontOfSize:size], NSFontAttributeName,
                                           paragraph, NSParagraphStyleAttributeName,
                                           nil];
     CGSize fixedSize = [text boundingRectWithSize:constSize

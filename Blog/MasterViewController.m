@@ -187,7 +187,7 @@
     NSString *commenter     = blog[@"latestCommenter"];
     [self setLastCommnter:cell.lastCommenter commenter:commenter];
     cell.title.text         = blog[@"title"];
-    CGFloat height = [self getTitleHeight:blog[@"title"]];
+    CGFloat height = [Helpers getTextHeight:blog[@"title"] fontSize:18.0f];
     [self setContent:cell.content contentText:blog[@"content"] height:height];
     [self setCountOfResponses:cell.commentCount count:blog[@"commentCount"] height:height];
     [Helpers setAvatar:cell.avatar avatarLink:blog[@"avatarOfCommenter"]];
@@ -233,24 +233,6 @@
     tagName.text                = [tagStr stringByAppendingString:@" >  "];
     tagName.layer.masksToBounds = YES;
     tagName.layer.cornerRadius  = 4;
-}
-
-- (CGFloat)getTitleHeight:(NSString *)text {
-    CGSize constSize = CGSizeMake(310.f, 500.f);
-    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
-    NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                          [UIFont systemFontOfSize:18],
-                                          NSFontAttributeName,
-                                          paragraph, NSParagraphStyleAttributeName,
-                                          nil];
-    NSMutableAttributedString *attrText = [[NSMutableAttributedString alloc]
-                                           initWithString: text
-                                           attributes:attributesDictionary];
-    CGSize fixedSize = [attrText boundingRectWithSize:constSize
-                                          options:NSStringDrawingUsesLineFragmentOrigin
-                                          context:nil].size;
-    return fixedSize.height;
 }
 
 @end

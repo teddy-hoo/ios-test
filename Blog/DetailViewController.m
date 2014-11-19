@@ -76,7 +76,7 @@
     if (indexPath.row == 0){
         return 200;
     }
-    return [Helpers getTextHeight:self.comments[indexPath.row][@"content"]] + 110;
+    return [Helpers getTextHeight:self.comments[indexPath.row][@"content"] fontSize:14.0f] + 110;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -126,7 +126,7 @@
                                                  green:220 / 255.0
                                                   blue:200 / 255.0
                                                  alpha:0.2];
-    CGFloat height = [Helpers getTextHeight:comment[@"content"]];
+    CGFloat height = [Helpers getTextHeight:comment[@"content"] fontSize:14.0f];
     [Helpers rePostionButton:cell.like textHeight:height];
     [Helpers rePostionButton:cell.reply textHeight:height];
     [Helpers rePositionLabel:cell.report textHeight:height];

@@ -14,7 +14,7 @@
 + (void)rePostionButton:(UIButton *)btn textHeight:(CGFloat)height;
 + (void) rePositionLabel:(UILabel *)label textHeight:(CGFloat)height;
 + (void) setAvatar:(UIImageView *)avatar avatarLink:(NSString *)avatarLink;
-+ (CGFloat)getTextHeight:(NSString *)text;
-+ (NSString *)calculateDate:(NSString *)date; 
++ (CGFloat)getTextHeight:(NSString *)text fontSize:(CGFloat)size;
++ (NSString *)calculateDate:(NSString *)date;
 
 @end
