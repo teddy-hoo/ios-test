@@ -166,12 +166,15 @@
                                  stringByAppendingString:viewCount] stringByAppendingString:@" views"];
     cell.tagName.text  = self.blog[@"tag"];
     cell.content.text  = self.blog[@"content"];
-    NSString *date = [self calculateDate:self.blog[@"time_created"]];
+    NSAttributedString *date = [[NSMutableAttributedString alloc] initWithString:[self calculateDate:self.blog[@"time_created"]]];
+    UIFont *systemFont = [UIFont fontWithName:@"HelveticaNeue" size:13.0f];
+    NSDictionary * fontAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:systemFont, NSFontAttributeName, nil];
     NSMutableAttributedString *authorAndDate = [[NSMutableAttributedString alloc]
-                                         initWithString:[author[@"first_name"]
-                                                         stringByAppendingString:date]];
-    [authorAndDate addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor]
-                              range:NSMakeRange(0,authorAndDate.length - date.length)];
+                                         initWithString:[@"Posted by " stringByAppendingString:author[@"first_name"]]                                             attributes:fontAttributes];
+    [authorAndDate appendAttributedString:date];
+//                                                stringByAppendingString:date]]
+//    [authorAndDate addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor]
+//                              range:NSMakeRange(0,authorAndDate.length - date.length)];
     cell.authorAndDate.attributedText = authorAndDate;
     
     cell.like.layer.masksToBounds = YES;
