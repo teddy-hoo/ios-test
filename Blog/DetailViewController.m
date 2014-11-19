@@ -78,6 +78,18 @@
     return [self getTextHeight:self.comments[indexPath.row][@"content"]] + 110;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row % 2) {
+        [cell.contentView setBackgroundColor:[UIColor colorWithRed:0.5
+                                                             green:0.5
+                                                              blue:0.5
+                                                             alpha:0.08]];
+    }
+    else {
+        [cell.contentView setBackgroundColor:[UIColor clearColor]];
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if(indexPath.row == 0){

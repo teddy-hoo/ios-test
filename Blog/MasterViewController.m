@@ -155,6 +155,18 @@
     return [self getTitleHeight:self.objects[indexPath.row][@"title"]] + 100;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(MainViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row % 2) {
+        [cell.contentView setBackgroundColor:[UIColor colorWithRed:0.5
+                                                             green:0.5
+                                                              blue:0.5
+                                                             alpha:0.08]];
+    }
+    else {
+        [cell.contentView setBackgroundColor:[UIColor clearColor]];
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MainViewCell *cell = (MainViewCell *)[tableView dequeueReusableCellWithIdentifier:@"MainCell"];
